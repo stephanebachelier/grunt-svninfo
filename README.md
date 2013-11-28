@@ -75,6 +75,49 @@ svninfo: {
 }
 ```
 
+#### revision arg
+Type: `String`
+
+Allows to specify a custom revision or date. Revision range is not supported by svn info command.
+Revision arg must be one supported by svn info command. From the svn info help:
+```
+Valid options:
+  -r [--revision] ARG      : ARG (some commands also take ARG1:ARG2 range)
+                             A revision argument can be one of:
+                                NUMBER       revision number
+                                '{' DATE '}' revision at start of the date
+                                'HEAD'       latest in repository
+                                'BASE'       base rev of item's working copy
+                                'COMMITTED'  last commit at or before BASE
+                                'PREV'       revision just before COMMITTED
+```
+
+Example:
+``` js
+svninfo: {
+  options: {
+    revision: 'HEAD'
+  },
+  ...
+}
+```
+
+It is possible, as `svninfo` is a multitask to specify differents commands:
+``` js
+svninfo: {
+  remote: {
+    revision: 'HEAD'
+  },
+  local: {
+    revision: 'BASE'
+  },
+  since: {
+    revision: '{YYYYMMDD}' // date format
+  },
+  ...
+}
+```
+
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
